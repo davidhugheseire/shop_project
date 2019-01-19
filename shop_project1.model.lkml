@@ -3,7 +3,7 @@ connection: "thelook"
 include: "*.view.lkml"                       # include all views in this project
 
 datagroup: datagroup1 {
-  max_cache_age: "1 minutes"
+  max_cache_age: "1 minute"
   sql_trigger: SELECT now() ;;
 }
 
