@@ -7,6 +7,7 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
@@ -71,6 +72,62 @@ view: users {
     type: count
     drill_fields: [detail*]
   }
+
+
+
+  measure: is_over40 {
+    type: yesno
+    sql:${age} > 40 ;;
+  }
+
+
+measure: L90BD_LOL_CNT {
+sql: (${TABLE}.age) ;;
+type: sum
+}
+
+
+
+
+
+
+
+
+###############################################################################
+  dimension: cpc_prod_group_name{
+    view_label: "Product Detail"
+    label: "cpc_product_group name"
+    hidden: yes
+    type: string
+    sql: ${TABLE}.state  ;;
+    drill_fields: [zip]}
+
+
+
+  dimension: vertical_prod_group {
+    label: "Vertical Product Group"
+    view_label: "Product Detail"
+    #description: "Vertical Group drill down level 1 (Auto, CDs, Checking, Home Equity, MMA and Savings, Mortgages, Personal Loans)"
+    drill_fields: [vertical_prod_group, zip]
+    sql: CASE WHEN ${cpc_prod_group_name} like '%Maine%' THEN 'CDs'
+              WHEN ${cpc_prod_group_name} like '%New York%' THEN 'MMA and Savings'
+              ELSE ${cpc_prod_group_name}
+              END;;
+  }
+
+
+  measure: dave_test2 {
+    type: number
+    sql:      case
+              when ${vertical_prod_group}='MMA and Savings'      then 1
+              when ${vertical_prod_group}='CDs'                  then 2
+              when ${vertical_prod_group}='Mortgages'            then 3
+              else Null End  ;;}
+
+
+  ###############################################################################
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
