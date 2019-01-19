@@ -2,17 +2,17 @@ connection: "thelook"
 
 include: "*.view.lkml"                       # include all views in this project
 
-datagroup: datagroup4 {
-  sql_trigger: SELECT 1 ;;
+datagroup: datagroup1 {
   max_cache_age: "1 minutes"
+  sql_trigger: SELECT now() ;;
 }
 
-datagroup: datagroup5 {
+datagroup: datagroup2 {
+  max_cache_age: "12 hours"
   sql_trigger: SELECT 1 ;;
-  max_cache_age: "1 minutes"
 }
 
-datagroup: datagroup6 {
+datagroup: datagroup3 {
+  max_cache_age: "12 hours"
   sql_trigger: SELECT 1 ;;
-  max_cache_age: "1 minutes"
 }
