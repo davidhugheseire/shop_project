@@ -10,7 +10,17 @@ datagroup: shop_project_default_datagroup {
 
 datagroup: datagroup1 {
   sql_trigger: SELECT now() ;;
-  max_cache_age: "5 minutes"
+  max_cache_age: "1 minutes"
+}
+
+datagroup: datagroup2 {
+  sql_trigger: SELECT 1 ;;
+  max_cache_age: "1 minutes"
+}
+
+datagroup: datagroup3 {
+  sql_trigger: SELECT 1 ;;
+  max_cache_age: "1 minutes"
 }
 
 persist_with: shop_project_default_datagroup
