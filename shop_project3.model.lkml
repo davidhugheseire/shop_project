@@ -4,7 +4,7 @@ include: "*.view.lkml"
 
 datagroup: datagroup1 {
   max_cache_age: "12 hours"
-  sql_trigger: SELECT now() ;;
+  sql_trigger: SELECT 1 ;;
 }
 
 datagroup: datagroup2 {
