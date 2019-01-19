@@ -16,5 +16,3 @@ datagroup: datagroup3 {
   max_cache_age: "12 hours"
   sql_trigger: SELECT 1 ;;
 }
-
-persist_with: datagroup1
