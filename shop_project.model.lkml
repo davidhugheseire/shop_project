@@ -3,12 +3,42 @@ connection: "thelook"
 # include all the views
 include: "*.view"
 
-# datagroup: shop_project_default_datagroup {
-#   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-#   max_cache_age: "1 hour"
-# }
+datagroup: datagroupA {
+  max_cache_age: "1 minute"
+  sql_trigger: SELECT now() ;;
+}
 
-# persist_with: shop_project_default_datagroup
+datagroup: datagroupB {
+  max_cache_age: "12 hours"
+  sql_trigger: SELECT 1 ;;
+}
+
+datagroup: datagroupC {
+  max_cache_age: "12 hours"
+  sql_trigger: SELECT 1 ;;
+}
+
+ persist_with: datagroupA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 explore: events {
   join: users {
