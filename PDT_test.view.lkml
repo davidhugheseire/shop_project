@@ -1,7 +1,7 @@
 # If necessary, uncomment the line below to include explore_source.
 # include: "shop_project.model.lkml"
 
-view: pdt_A {
+view: pdt_AA {
   derived_table: {
     explore_source: orders {
       column: city { field: users.city }
@@ -20,7 +20,7 @@ view: pdt_A {
   }
 }
 
-view: pdt_B {
+view: pdt_BB {
   derived_table: {
     explore_source: orders {
       column: city { field: users.city }
@@ -39,7 +39,7 @@ view: pdt_B {
   }
 }
 
-view: pdt_C {
+view: pdt_CC {
   derived_table: {
     explore_source: orders {
       column: city { field: users.city }
