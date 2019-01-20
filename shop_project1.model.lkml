@@ -100,5 +100,8 @@ explore: user_data {
 }
 
 explore: users {}
-
 explore: users_nn {}
+
+explore: pdt_AAA {}
+explore: pdt_BBB {}
+explore: pdt_CCC {}

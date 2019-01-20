@@ -3,6 +3,7 @@
 
 view: pdt_AAA {
   derived_table: {
+    indexes: ["city"]
     explore_source: orders {
       column: city { field: users.city }
       column: country { field: users.country }
@@ -10,7 +11,6 @@ view: pdt_AAA {
       column: count { field: users.count }
     }
     datagroup_trigger: datagroupA
-    persist_for: "5 minute"
   }
   dimension: city {}
   dimension: country {}
@@ -22,6 +22,7 @@ view: pdt_AAA {
 
 view: pdt_BBB {
   derived_table: {
+    indexes: ["city"]
     explore_source: orders {
       column: city { field: users.city }
       column: country { field: users.country }
@@ -29,7 +30,6 @@ view: pdt_BBB {
       column: count { field: users.count }
     }
     datagroup_trigger: datagroupB
-    persist_for: "5 minute"
   }
   dimension: city {}
   dimension: country {}
@@ -41,6 +41,7 @@ view: pdt_BBB {
 
 view: pdt_CCC {
   derived_table: {
+    indexes: ["city"]
     explore_source: orders {
       column: city { field: users.city }
       column: country { field: users.country }
@@ -48,7 +49,6 @@ view: pdt_CCC {
       column: count { field: users.count }
     }
     datagroup_trigger: datagroupC
-    persist_for: "5 minute"
   }
   dimension: city {}
   dimension: country {}
