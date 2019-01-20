@@ -9,7 +9,8 @@ view: pdt_A {
       column: last_name { field: users.last_name }
       column: count { field: users.count }
     }
-    datagroup_trigger: datagroup1
+    datagroup_trigger: datagroupA
+    persist_for: "5 minutes"
   }
   dimension: city {}
   dimension: country {}
@@ -27,7 +28,8 @@ view: pdt_B {
       column: last_name { field: users.last_name }
       column: count { field: users.count }
     }
-    datagroup_trigger: datagroup2
+    datagroup_trigger: datagroupB
+    persist_for: "5 minutes"
   }
   dimension: city {}
   dimension: country {}
@@ -45,7 +47,8 @@ view: pdt_C {
       column: last_name { field: users.last_name }
       column: count { field: users.count }
     }
-    datagroup_trigger: datagroup3
+    datagroup_trigger: datagroupC
+    persist_for: "5 minutes"
   }
   dimension: city {}
   dimension: country {}
