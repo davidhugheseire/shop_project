@@ -4,7 +4,7 @@ connection: "thelook"
 include: "*.view"
 
 datagroup: datagroupA {
-  max_cache_age: "5 minutes"
+  max_cache_age: "1 minute"
   sql_trigger: SELECT now() ;;
 }
 
