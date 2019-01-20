@@ -10,7 +10,7 @@ view: pdt_AAA {
       column: count { field: users.count }
     }
     datagroup_trigger: datagroupA
-    persist_for: "1 minute"
+    persist_for: "5 minute"
   }
   dimension: city {}
   dimension: country {}
@@ -29,7 +29,7 @@ view: pdt_BBB {
       column: count { field: users.count }
     }
     datagroup_trigger: datagroupB
-    persist_for: "1 minute"
+    persist_for: "5 minute"
   }
   dimension: city {}
   dimension: country {}
@@ -48,7 +48,7 @@ view: pdt_CCC {
       column: count { field: users.count }
     }
     datagroup_trigger: datagroupC
-    persist_for: "1 minute"
+    persist_for: "5 minute"
   }
   dimension: city {}
   dimension: country {}
