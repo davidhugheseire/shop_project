@@ -9,12 +9,12 @@ datagroup: datagroupA {
 }
 
 datagroup: datagroupB {
-  max_cache_age: "12 hours"
+  max_cache_age: "1  minute"
   sql_trigger: SELECT 1 ;;
 }
 
 datagroup: datagroupC {
-  max_cache_age: "12 hours"
+  max_cache_age: "1 minute"
   sql_trigger: SELECT 1 ;;
 }
 
