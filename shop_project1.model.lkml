@@ -14,7 +14,7 @@ datagroup: datagroupB {
 
 datagroup: datagroupC {
   max_cache_age: "1 minute"
-  sql_trigger: SELECT 1 ;;
+  sql_trigger: SELECT now() ;;
 }
 
 
