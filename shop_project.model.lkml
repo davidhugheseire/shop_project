@@ -22,17 +22,17 @@ datagroup: datagroupC {
 
 
 
-datagroup: schedule_datagroup_hourly {
+datagroup: schedule_hourly {
   max_cache_age: "24 hours"
   sql_trigger:  SELECT FLOOR(UNIX_TIMESTAMP() / (1*60*60)) ;;
 }
 
-datagroup: schedule_datagroup_etl {
+datagroup: schedule_row_change {
   max_cache_age: "24 hours"
   sql_trigger:    SELECT COUNT(*) FROM orders;;
 }
 
-datagroup: schedule_datagroup_etls {
+datagroup: schedule_date_change {
   max_cache_age: "24 hours"
   sql_trigger:    SELECT max(created_at) FROM orders;;
 }
