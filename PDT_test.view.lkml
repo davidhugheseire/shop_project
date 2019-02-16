@@ -14,9 +14,6 @@ view: pdt_AAA {
     datagroup_trigger: datagroupA
   }
 
-
-
-
   dimension: city {}
 
   dimension: country {}
@@ -27,27 +24,7 @@ view: pdt_AAA {
     type: number
   }
 
-#   dimension : dynamic_date {
-#     type: date
-#     sql:  {% if table2.period_type._parameter_value == 'first_name' %}
-#           ${users.first_name}
-#           {% elsif table2.period_type._parameter_value == 'last_name' %}
-#           ${users.last_name};;
-#
-#   }
-
-
 }
-
-
-
-
-
-
-
-
-
-
 
 
 view: pdt_BBB {
