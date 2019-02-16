@@ -77,10 +77,6 @@ view: users {
 #     drill_fields: [detail*]
 #   }
 
-  measure:count_ages {
-    type: count
-     sql: ${TABLE}.age ;;
-  }
 
 
 

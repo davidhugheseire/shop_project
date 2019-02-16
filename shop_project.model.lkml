@@ -21,11 +21,11 @@ datagroup: datagroupC {
 
 
 
+
 datagroup: schedule_datagroup_hourly {
   max_cache_age: "24 hours"
-  sql_trigger:  SELECT extract('hour', GETDATE());;
+  sql_trigger:  SELECT FLOOR(UNIX_TIMESTAMP() / (1*60*60)) ;;
 }
-
 
 datagroup: schedule_datagroup_etl {
   max_cache_age: "24 hours"
