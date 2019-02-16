@@ -34,7 +34,7 @@ datagroup: schedule_datagroup_etl {
 
 datagroup: schedule_datagroup_etls {
   max_cache_age: "24 hours"
-  sql_trigger:    SELECT max(created_date) FROM orders;;
+  sql_trigger:    SELECT max(created_at) FROM orders;;
 }
 
 
