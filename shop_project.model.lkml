@@ -21,21 +21,16 @@ datagroup: datagroupC {
 
 
 
+datagroup: schedule_datagroup_hourly {
+  max_cache_age: "24 hours"
+  sql_trigger:  SELECT DATE_PART('hour', GETDATE());;
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+datagroup: schedule_datagroup_etl {
+  max_cache_age: "24 hours"
+  sql_trigger:    SELECT COUNT(*) FROM orders;;
+}
 
 
 

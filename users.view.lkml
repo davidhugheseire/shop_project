@@ -8,6 +8,10 @@ view: users {
   }
 
 
+  measure: count {
+    type: count
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
@@ -67,11 +71,17 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+#
+#   measure: count {
+#     type: count
+#     drill_fields: [detail*]
+#   }
 
-  measure: count {
+  measure:count_ages {
     type: count
-    drill_fields: [detail*]
+     sql: ${TABLE}.age ;;
   }
+
 
 
 
@@ -85,12 +95,6 @@ measure: L90BD_LOL_CNT {
 sql: (${TABLE}.age) ;;
 type: sum
 }
-
-
-
-
-
-
 
 
 ###############################################################################
@@ -119,10 +123,10 @@ type: sum
   measure: dave_test2 {
     type: number
     sql:      case
-              when ${vertical_prod_group}='MMA and Savings'      then 1
-              when ${vertical_prod_group}='CDs'                  then 2
-              when ${vertical_prod_group}='Mortgages'            then 3
-              else Null End  ;;}
+              when ${vertical_prod_group}='MMA and Savings' and ${age} >=(50+1)    then 11111
+              when ${vertical_prod_group}='CDs'             and ${age} >=(50+2)    then 22222
+              when ${vertical_prod_group}='Mortgages'       and ${age} >=(50*3)    then 333333
+              else null End  ;;}
 
 
   ###############################################################################
