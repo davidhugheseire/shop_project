@@ -7,6 +7,14 @@ view: products {
     sql: ${TABLE}.id ;;
   }
 
+
+  parameter: delivered_pocs_only {
+    type: unquoted
+    default_value: "No"
+    allowed_value: {value:"Yes"}
+    allowed_value: {value:"No"}
+  }
+
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
@@ -46,4 +54,8 @@ view: products {
     type: count
     drill_fields: [id, item_name, inventory_items.count]
   }
+
+
+
+
 }

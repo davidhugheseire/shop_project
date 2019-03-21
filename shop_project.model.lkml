@@ -91,7 +91,16 @@ explore: orders {
   }
 }
 
-explore: products {}
+# explore: products {
+#   sql_always_where:
+#   {% if delivered_pocs_only._parameter_value <> 'Yes' %}
+#   ${brand} = '  555 Turnpike'
+#   {% elsif delivered_pocs_only._parameter_value == 'Yes' %}
+#   ${brand} = '7 Diamonds'
+#   {% else %}
+#   error
+#   {% endif %};;
+# }
 
 explore: schema_migrations {}
 
@@ -103,10 +112,13 @@ explore: user_data {
   }
 }
 
-explore: users {}
-
+explore: users {
+  sql_always_where: ${gender} = 'f';;
+}
 explore: users_nn {}
-
 explore: pdt_AAA {}
 explore: pdt_BBB {}
 explore: pdt_CCC {}
+explore: extended_users_male {
+
+}
