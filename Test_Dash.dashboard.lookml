@@ -106,7 +106,7 @@
     width: 8
     height: 6
   - title: New Tile
-    name: New Tile
+    name: New Tilea
     model: shop_project
     explore: users
     type: single_value
@@ -131,7 +131,7 @@
     width: 8
     height: 6
   - title: New Tile
-    name: New Tile
+    name: New Tileaa
     model: shop_project
     explore: users
     type: single_value

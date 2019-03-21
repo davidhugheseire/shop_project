@@ -2,6 +2,8 @@ connection: "thelook"
 
 # include all the views
 include: "*.view"
+include: "*.view"
+include: "*.dashboard.lookml"
 
 datagroup: datagroupA {
   max_cache_age: "1 minute"
