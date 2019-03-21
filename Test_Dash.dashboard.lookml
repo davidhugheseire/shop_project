@@ -1,5 +1,5 @@
 - dashboard: test_dash
-  title: EmbedTest
+  title: test_dash
   layout: newspaper
   elements:
   - title: Gender State
