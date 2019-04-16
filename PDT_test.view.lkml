@@ -12,7 +12,7 @@ view: pdt_AAA {
       column: count3 { field: users.count }
     }
 
-    datagroup_trigger: datagroupA
+    datagroup_trigger: schedule_hourly
   }
 
   dimension: city {}
@@ -38,7 +38,7 @@ view: pdt_BBB {
       column: count { field: users.count }
       column: count2 { field: users.count }
     }
-    datagroup_trigger: datagroupB
+    datagroup_trigger: schedule_hourly
   }
   parameter: Last_Name {
     type: unquoted
@@ -71,7 +71,7 @@ view: pdt_CCC {
       column: count { field: users.count }
       column: count2 { field: users.count }
     }
-    datagroup_trigger: datagroupC
+    datagroup_trigger: schedule_hourly
   }
   dimension: city {}
   dimension: country {}
