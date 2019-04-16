@@ -9,7 +9,7 @@ view: pdt_AAA {
       column: country { field: users.country }
       column: last_name { field: users.last_name }
       column: count { field: users.count }
-      column: count2 { field: users.count }
+      column: count3 { field: users.count }
     }
 
     datagroup_trigger: datagroupA
@@ -36,6 +36,7 @@ view: pdt_BBB {
       column: country { field: users.country }
       column: last_name { field: users.last_name }
       column: count { field: users.count }
+      column: count2 { field: users.count }
     }
     datagroup_trigger: datagroupB
   }
@@ -68,6 +69,7 @@ view: pdt_CCC {
       column: country { field: users.country }
       column: last_name { field: users.last_name }
       column: count { field: users.count }
+      column: count2 { field: users.count }
     }
     datagroup_trigger: datagroupC
   }
