@@ -21,7 +21,7 @@ datagroup: datagroupC {
 }
 
 
-
+explore: bla {}
 
 
 datagroup: schedule_hourly {

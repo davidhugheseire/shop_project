@@ -15,13 +15,8 @@ include: "order_items.view.lkml"
 
 explore: sql_derived_table_test {
   #sql_always_where: {% condition sql_derived_table_test.time_filter %} ${created_time} {% endcondition %} ;;
-  always_filter: {
-    filters: {
-      field: created_dave_date
-      value: "before 1 week ago"
-    }
+
   }
-}
 
 
 

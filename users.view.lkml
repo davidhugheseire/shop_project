@@ -10,11 +10,27 @@ view: users {
 
   measure: count {
     type: count
+    drill_fields: [age, id]
   }
 
   dimension: age {
     type: string
     sql: ${TABLE}.age ;;
+  }
+
+  measure: sale_2018_per {
+    label: "% Sales LY"
+    type: number
+    sql: ${TABLE}.age ;;
+    html: {{ value | times: 2 | round : 0 }};;
+
+    }
+
+  measure: sale_2018_per_no_liquid {
+    label: "% Sales LY_no liquid"
+    type: number
+    sql: ${TABLE}.age ;;
+
   }
 
 
@@ -125,11 +141,18 @@ view: users {
 
 
 
-
   dimension: date_formatted {
-   label: "Date"
+   label: "Date_formatted"
     sql: ${created_date} ;;
-    html: {{ rendered_value | date: "%b %d, %y" }};;
+    html:
+    {% if _user_attributes['region'] == 'EU' %}
+    {{ rendered_value | date: "%b %d, %y" }}
+     {% endif %}
+     {% if _user_attributes['region'] == 'USA' %}
+     {{ rendered_value | date:  "%a, %b %d, %y" }}
+    {% else %}
+    {{ rendered_value | date: "%y %d, %b" }}
+    {% endif %};;
   }
 
   dimension: week_formatted {
@@ -149,7 +172,14 @@ dimension: yes_test {
   type: yesno
   sql: ${age}>30 ;;
 }
-
+  dimension: yes_test1 {
+    type: yesno
+    sql: ${age}<30 ;;
+  }
+  dimension: yes_test2 {
+    type: yesno
+    sql: ${state}='Texas' ;;
+  }
 
 dimension: test_dimension {
   type: string
@@ -220,6 +250,12 @@ dimension: test_dimension {
     map_layer_name: countries
     sql: ${TABLE}.country ;;
     html: <center><i><font face="romain" size="10" color="red">{{ value }}</font></i></center> ;;
+  }
+
+  dimension: whitespace {
+    type: string
+    sql: concat(' ', ${TABLE}.country );;
+
   }
 
   dimension: city {

@@ -20,15 +20,21 @@ view: sql_derived_table_test {
           {% condition date_filter %} created_at {% endcondition %};;
   }
 
+
+  filter: date_filter {
+    type: date
+  }
+
+
+
+
+
   filter: state_filter {
     type: string
   }
 
 
 
-  filter: date_filter {
-    type: date
-  }
 
 
 
