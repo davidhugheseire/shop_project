@@ -2,19 +2,8 @@ view: pdt_test2 {
     derived_table: {
       sql:
         SELECT
-            age
-            ,city
-            ,country
-            ,DATE(created_at) as "date"
-            ,email
-            ,first_name
-            ,{pdt_AAA.SQL_TABLE_NAME}.last_name as "last_name2"
-            ,gender
-            ,id
-            ,last_name
-            ,state
-            ,zip
-          FROM demo_db.users ;;
+           *
+          FROM {pdt_AAA.SQL_TABLE_NAME} ;;
 
       datagroup_trigger: schedule_hourly
     }
@@ -178,10 +167,7 @@ view: pdt_test2 {
       type: string
       sql: ${TABLE}.last_name ;;
     }
-  dimension: last_name2 {
-    type: string
-    sql: ${TABLE}.last_name2 ;;
-  }
+
     dimension: state {
       type: string
       sql: ${TABLE}.state ;;
