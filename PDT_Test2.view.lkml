@@ -8,7 +8,7 @@ view: pdt_test2 {
             ,DATE(created_at) as "date"
             ,email
             ,first_name
-            ,{pdt_AAA.last_name}
+            ,{pdt_AAA.SQL_TABLE_NAME}.last_name as "last_name"
             ,gender
             ,id
             ,last_name
