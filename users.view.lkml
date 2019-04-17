@@ -14,7 +14,7 @@ view: users {
   }
 
   dimension: age {
-    type: string
+    type: number
     sql: ${TABLE}.age ;;
   }
 
@@ -33,6 +33,10 @@ view: users {
 
   }
 
+
+measure: count_all {
+  type: count
+}
 
   ######################  ######################  ######################  ######################  ######################  ######################  ######################  ######################
   dimension: state_no_liquid{
