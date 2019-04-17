@@ -8,7 +8,7 @@ view: pdt_test2 {
             ,DATE(created_at) as "date"
             ,email
             ,first_name
-            ,{pdt_AAA.SQL_TABLE_NAME}.last_name as "last_name"
+            ,{pdt_AAA.SQL_TABLE_NAME}.last_name as "last_name2"
             ,gender
             ,id
             ,last_name
@@ -125,6 +125,7 @@ view: pdt_test2 {
       sql: ${TABLE}.city ;;
       html: {{ value | upcase | remove: "NEW"  }} ;;
     }
+
     dimension: city_without {
       type: string
       sql: ${TABLE}.city ;;
@@ -177,6 +178,10 @@ view: pdt_test2 {
       type: string
       sql: ${TABLE}.last_name ;;
     }
+  dimension: last_name2 {
+    type: string
+    sql: ${TABLE}.last_name2 ;;
+  }
     dimension: state {
       type: string
       sql: ${TABLE}.state ;;
