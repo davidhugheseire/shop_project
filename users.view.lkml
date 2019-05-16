@@ -3,7 +3,7 @@ view: users {
 
   dimension: id {
     primary_key: yes
-    type: number
+    type: string
     sql: ${TABLE}.id ;;
   }
 
@@ -11,11 +11,6 @@ view: users {
   measure: count {
     type: count
     drill_fields: [age, id]
-  }
-
-  dimension: age {
-    type: number
-    sql: ${TABLE}.age ;;
   }
 
   measure: sale_2018_per {
@@ -37,6 +32,23 @@ view: users {
 measure: count_all {
   type: count
 }
+
+  dimension: age {
+    type: number
+    sql: ${TABLE}.age ;;
+  }
+
+  measure: count_ages {
+    type: count
+    filters: {
+      field: age
+      value: "-28"
+    } filters: {
+      field: age
+      value: "-25"
+    }
+}
+
 
   ######################  ######################  ######################  ######################  ######################  ######################  ######################  ######################
   dimension: state_no_liquid{
@@ -391,6 +403,7 @@ dimension: test_dimension {
         Percent Ontime: {{ percent_ontime._linked_value }}
         </div> ;;
   }
+
 
 
 

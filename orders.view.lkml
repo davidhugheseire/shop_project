@@ -61,4 +61,23 @@ view: orders {
     type: count
     drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
   }
+
+
+#   measure: accum {
+#     type: percent_of_total
+#     value_format_name: percent_2
+#    #value_format: "0.00%"
+#     label: "Portion %"
+#     sql: ${count};;
+#
+#   }
+
+
+  measure: accum {
+    type: percent_of_total
+    value_format: "0.00\%"
+    sql: ${count};;
+
+  }
+
 }

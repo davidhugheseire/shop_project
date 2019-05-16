@@ -86,11 +86,13 @@ explore: order_items {
 }
 
 explore: orders {
-  join: users {
-    type: left_outer
-    sql_on: ${orders.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
+  sql_always_where: (orders.created_at ) >= ((DATE_ADD(TIMESTAMP(DATE_FORMAT(CURDATE(),'%Y-%m-01')),INTERVAL -6 month)))
+                AND (orders.created_at ) < ((DATE_ADD(DATE_ADD(TIMESTAMP(DATE_FORMAT(CURDATE(),'%Y-%m-01')),INTERVAL -6 month),INTERVAL 6 month))) ;;
+#   join: users {
+#     type: left_outer
+#     sql_on: ${orders.user_id} = ${users.id} ;;
+#     relationship: many_to_one
+#   }
 }
 
 # explore: products {
@@ -115,12 +117,13 @@ explore: user_data {
 }
 
 explore: users {
-  sql_always_where: ${gender} = 'f';;
+  access_filter: {
+    field: users.id
+    user_attribute: storeid
+  }
+
 }
 explore: users_nn {}
-explore: pdt_AAA {}
-explore: pdt_BBB {}
-explore: pdt_CCC {}
 explore: extended_users_male {
 
 }
