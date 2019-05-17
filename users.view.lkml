@@ -13,6 +13,11 @@ view: users {
     drill_fields: [age, id]
   }
 
+  measure: table2_measure {
+    type: sum
+    sql: round(rand() * 0.49 + 0.01, 10) * 1000  ;;
+  }
+
   measure: sale_2018_per {
     label: "% Sales LY"
     type: number

@@ -3,7 +3,7 @@ connection: "thelook"
 # include all the views
 include: "*.view"
 include: "*.view"
-include: "*.dashboard.lookml"
+
 
 
 
