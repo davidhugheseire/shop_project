@@ -7,47 +7,27 @@ include: "*.view"
 
 
 
-explore: events {
-  join: users {
-    type: left_outer
-    sql_on: ${events.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: inventory_items {
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
-}
-
 explore: order_items {
-  join: inventory_items {
-    type: left_outer
-    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
-    relationship: many_to_one
-  }
-
   join: orders {
+    view_label: "This is Orders"
     type: left_outer
+    relationship: many_to_one
     sql_on: ${order_items.order_id} = ${orders.id} ;;
-    relationship: many_to_one
   }
-
-  join: products {
+  join: buyers {
+    view_label: "This is Buyers"
+    from: users
     type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
+    sql_on: ${orders.id} = ${buyers.id} ;;
+    fields: [-age, -zip]
   }
-
-  join: users {
+  join: sellers {
+    view_label: "This is Sellers"
+    from: users
     type: left_outer
-    sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
+    sql_on: ${orders.id} = ${sellers.id} ;;
+    fields: [-age, -zip]
   }
-
-
-
-  }
+}
