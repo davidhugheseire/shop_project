@@ -43,6 +43,20 @@ measure: count_all {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: long_age {
+    type: number
+    sql: CONCAT("123456789101234", ${TABLE}.age );;
+  }
+
+
+  dimension: origination_proc_fee {
+    type: number
+    value_format_name: gbp
+    sql: ${age};;
+  }
+
+
+
   measure: count_ages {
     type: count
     filters: {
@@ -154,6 +168,7 @@ measure: count_all {
       month,
       day_of_month,
       month_name,
+      day_of_week_index,
       quarter,
       year
     ]
