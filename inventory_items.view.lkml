@@ -9,7 +9,7 @@ view: inventory_items {
 
   dimension: cost {
     type: number
-    sql: ${TABLE}.cost ;;
+    sql: ${TABLE}.costs ;;
   }
 
   dimension_group: created {

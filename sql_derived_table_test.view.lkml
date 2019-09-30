@@ -1,7 +1,7 @@
 view: sql_derived_table_test {
   derived_table: {
     sql:
-        SELECT
+                SELECT
             age
             ,city
             ,country
@@ -13,59 +13,40 @@ view: sql_derived_table_test {
             ,last_name
             ,state
             ,zip
-          FROM demo_db.users
-          WHERE
-          {% condition state_filter %} state {% endcondition %}
-          AND
-          {% condition date_filter %} created_at {% endcondition %};;
+          FROM demo_db.{%parameter table_filter%}
+--         WHERE
+--        {% condition state_filter %} state {% endcondition %}
+      ;;
+   datagroup_trigger: datagroupA
   }
 
+  parameter: table_filter {
+    type: unquoted
+    allowed_value: { value: "users" }
+  }
 
   filter: date_filter {
     type: date
   }
 
+#   filter: table_filter {
+#     type: string
+#   }
 
-
-
+#   parameter: table_filter {
+#     type: unquoted
+#     allowed_value: { value: "users" }
+#   }
 
   filter: state_filter {
     type: string
   }
-
-
-
-
-
-
-  parameter: date_parameter {
-    type: unquoted
-    default_value: "before 1 week ago"
-    allowed_value: {value:"before 1 week ago"}
-    allowed_value: {value:""}
-  }
-
-
-
-
-
-
-  parameter: delivered_pocs_only {
-    type: unquoted
-    default_value: "No"
-    allowed_value: {value:"Yes"}
-    allowed_value: {value:"No"}
-  }
-
-
-
-
   filter: time_filter {
     type: date_time
   }
 
 
-  dimension_group: created_dave {
+  dimension_group: date {
     type: time
     timeframes: [
       raw,
@@ -76,43 +57,7 @@ view: sql_derived_table_test {
       quarter,
       year
     ]
-    sql: ${TABLE}.created_at ;;
-  }
-
-
-#   parameter: delivered_pocs_only {
-#     type: unquoted
-#     default_value: "No"
-#     allowed_value: {value:"Yes"}
-#     allowed_value: {value:"No"}
-#   }
-
-  dimension: state_liquid {
-    type: string
-    sql: ${TABLE}.state ;;
-    html:
-        {% if delivered_pocs_only._parameter_value <> 'Yes' %}
-            <p> <> yes!</p>
-        {% elsif delivered_pocs_only._parameter_value == 'Yes' %}
-            <p> Yes</p>
-        {% else %}
-            error
-        {% endif %};;
-  }
-
-
-
-
-
-
-  dimension: age {
-    type: number
-    sql: ${TABLE}.age ;;
-    html:
-    {% if value  > 50 %}
-          <h1> {{ value }} " is > 50"</h1>
-    {% endif %}
-    {{ 'young' | append: '.jpg' }};;
+    sql: ${TABLE}.date ;;
   }
 
   dimension: id {
@@ -121,58 +66,29 @@ view: sql_derived_table_test {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: age {
+    type: number
+    sql: ${TABLE}.age ;;
+  }
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
-    html: {{ value | upcase | remove: "NEW"  }} ;;
   }
-  dimension: city_without {
+  dimension: country {
     type: string
-    sql: ${TABLE}.city ;;
+    sql: ${TABLE}.country ;;
   }
-
-
-  dimension: city_is_not_null {
+  dimension: first_name {
     type: string
-    sql: ${TABLE}.city ;;
-    html:
-        {% if value %}
-          the city field is not null.
-        {% endif %} ;;
-  }
-
-  dimension: zip {
-    type: string
-    sql: ${TABLE}.zip ;;
-  }
-  dimension: email {
-    type: string
-    sql: ${TABLE}.email ;;
-    html: {% if value contains "thomas" %}
-            Hey there, Thomas!
-          {% endif %} ;;
+    sql: ${TABLE}.first_name ;;
   }
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
   }
-
-  dimension: gender_icon {
+  dimension: email {
     type: string
-    sql: ${TABLE}.gender ;;
-    html: icon_url: "
-          {% case sql_derived_table_test.state._value %}
-          {% when "Texas" %}
-          texas
-          {% else %}
-          not texas
-          {% endcase %}";;
-  }
-
-
-  dimension: first_name {
-    type: string
-    sql: ${TABLE}.first_name ;;
+    sql: ${TABLE}.email ;;
   }
   dimension: last_name {
     type: string
@@ -182,17 +98,32 @@ view: sql_derived_table_test {
     type: string
     sql: ${TABLE}.state ;;
   }
+  dimension: zip {
+    type: string
+    sql: ${TABLE}.zip ;;
+  }
+    measure: count {
+     type: count
+  }
 
 
 
-  measure: returned_count {
-    type: count_distinct
-    sql: ${id} ;;
-    filters: {
-      field: gender
-      value: "m"
-    }
-    link: {label: "Explore Top 20 Results" url: "{{ link }}&limit=20" }
+  parameter: liquid_date {
+    type: unquoted
+    allowed_value: { label: "EU" value: "Europe" }
+    allowed_value: { label: "USA" value: "America" }
+  }
+
+  dimension: date_formatted {
+    label: "Date_formatted"
+    sql: ${date_date} ;;
+    html:
+    {% if liquid_date._parameter_value  == 'America' %}
+          {{ rendered_value | date: "%B, %d, %Y" }}
+    {% endif %}
+    {% if liquid_date._parameter_value  == 'Europe' %}
+        {{ rendered_value | date:  "%d, %B %Y" }}
+    {% endif %};;
   }
 
 
@@ -202,15 +133,165 @@ view: sql_derived_table_test {
 
 
 
-  dimension_group: created {
-    type: time
-    timeframes: [time, date, week, month, hour, minute]
-    sql: ${TABLE}.date ;;
-  }
 
 
 
 
+
+
+
+
+
+
+#
+#   parameter: date_parameter {
+#     type: unquoted
+#     default_value: "before 1 week ago"
+#     allowed_value: {value:"before 1 week ago"}
+#     allowed_value: {value:""}
+#   }
+#
+#
+#
+#
+#
+#
+#   parameter: delivered_pocs_only {
+#     type: unquoted
+#     default_value: "No"
+#     allowed_value: {value:"Yes"}
+#     allowed_value: {value:"No"}
+#   }
+
+
+
+#   parameter: delivered_pocs_only {
+#     type: unquoted
+#     default_value: "No"
+#     allowed_value: {value:"Yes"}
+#     allowed_value: {value:"No"}
+#   }
+
+#   dimension: state_liquid {
+#     type: string
+#     sql: ${TABLE}.state ;;
+#     html:
+#         {% if delivered_pocs_only._parameter_value <> 'Yes' %}
+#             <p> <> yes!</p>
+#         {% elsif delivered_pocs_only._parameter_value == 'Yes' %}
+#             <p> Yes</p>
+#         {% else %}
+#             error
+#         {% endif %};;
+#   }
+#
+#
+#
+#
+#
+#
+#   dimension: age {
+#     type: number
+#     sql: ${TABLE}.age ;;
+#     html:
+#     {% if value  > 50 %}
+#           <h1> {{ value }} " is > 50"</h1>
+#     {% endif %}
+#     {{ 'young' | append: '.jpg' }};;
+#   }
+#
+
+
+#   dimension: city {
+#     type: string
+#     sql: ${TABLE}.city ;;
+#     html: {{ value | upcase | remove: "NEW"  }} ;;
+#   }
+#   dimension: city_without {
+#     type: string
+#     sql: ${TABLE}.city ;;
+#   }
+#
+#
+#   dimension: city_is_not_null {
+#     type: string
+#     sql: ${TABLE}.city ;;
+#     html:
+#         {% if value %}
+#           the city field is not null.
+#         {% endif %} ;;
+#   }
+#
+#   dimension: zip {
+#     type: string
+#     sql: ${TABLE}.zip ;;
+#   }
+#   dimension: email {
+#     type: string
+#     sql: ${TABLE}.email ;;
+#     html: {% if value contains "thomas" %}
+#             Hey there, Thomas!
+#           {% endif %} ;;
+#   }
+#   dimension: gender {
+#     type: string
+#     sql: ${TABLE}.gender ;;
+#   }
+
+#   dimension: gender_icon {
+#     type: string
+#     sql: ${TABLE}.gender ;;
+#     html: icon_url: "
+#           {% case sql_derived_table_test.state._value %}
+#           {% when "Texas" %}
+#           texas
+#           {% else %}
+#           not texas
+#           {% endcase %}";;
+#   }
+
+
+#   dimension: first_name {
+#     type: string
+#     sql: ${TABLE}.first_name ;;
+#   }
+#   dimension: last_name {
+#     type: string
+#     sql: ${TABLE}.last_name ;;
+#   }
+#   dimension: state {
+#     type: string
+#     sql: ${TABLE}.state ;;
+#   }
+
+
+
+#   measure: returned_count {
+#     type: count_distinct
+#     sql: ${id} ;;
+#     filters: {
+#       field: gender
+#       value: "m"
+#     }
+#     link: {label: "Explore Top 20 Results" url: "{{ link }}&limit=20" }
+#   }
+
+
+
+
+#   dimension_group: created {
+#     type: time
+#     timeframes: [time, date, week, month, hour, minute]
+#     sql: ${TABLE}.date ;;
+#   }
+#
+#
+#
+#
+#   measure: count {
+#     type: count
+#   }
+#
 
 
 
@@ -251,10 +332,6 @@ view: sql_derived_table_test {
 #
 #     }
 
-
-  measure: count {
-    type: count
-  }
 
 
 

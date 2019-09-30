@@ -4,20 +4,21 @@ connection: "thelook"
 include: "*.view"
 include: "*.view"
 include: "*.dashboard.lookml"
+include: "sql_derived_table_test.view.lkml"
 
 
-explore: user_data {
-  join: users {
-    type: left_outer
-    sql_on:
-    {% if users.age._value == '200' %}
-    ${user_data.user_id} = ${users.id}
-    {% else %}
-    ${user_data.user_id} = ${users.age}
-    {% endif %} ;;
-    relationship: many_to_one
-  }
-}
+# explore: user_data {
+#   join: users {
+#     type: left_outer
+#     sql_on:
+#     {% if users.age._value == '200' %}
+#     ${user_data.user_id} = ${users.id}
+#     {% else %}
+#     ${user_data.user_id} = ${users.age}
+#     {% endif %} ;;
+#     relationship: many_to_one
+#   }
+# }
 
 explore: events {
   join: users {
@@ -41,6 +42,12 @@ explore: inventory_items {
 
 
 explore: order_items {
+  always_filter: {
+    filters: {
+      field: id
+      value: "123"
+    }
+  }
   join: inventory_items {
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;

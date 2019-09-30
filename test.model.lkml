@@ -1,30 +1,34 @@
 connection: "thelook"
-
-# include all the views
-include: "*.view"
-include: "*.view"
-
-
-
-
-explore: order_items {
-  join: orders {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${order_items.order_id} = ${orders.id} ;;
-  }
-  join: buyers {
-    from: users
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${orders.id} = ${buyers.id} ;;
-    fields: [-age, -zip]
-  }
-  join: sellers {
-    from: users
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${orders.id} = ${sellers.id} ;;
-    fields: [-age, -zip]
-  }
-}
+#
+# # include all the views
+# include: "*.view"
+# include: "*.view"
+# include: "*.dashboard.lookml"
+#
+# explore: sql_derived_table_test{}
+#
+# explore: order_items {
+#   join: inventory_items {
+#     type: left_outer
+#     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+#     relationship: many_to_one
+#   }
+#   join: orders {
+#     type: left_outer
+#     sql_on: ${order_items.order_id} = ${orders.id} ;;
+#     relationship: many_to_one
+#   }
+#   join: products {
+#     type: left_outer
+#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
+#     relationship: many_to_one
+#   }
+#   join: users {
+#     type: left_outer
+#     sql_on: ${orders.user_id} = ${users.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#
+#
+# }

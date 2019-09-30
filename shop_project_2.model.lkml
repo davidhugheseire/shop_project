@@ -1,6 +1,6 @@
 connection: "thelook"
 
-include: "sql_derived_table_test.view.lkml"                       # include all views in this project
+include: "*.view.lkml"                       # include all views in this project
 include: "ndt_test.view.lkml"
 include: "order_items.view.lkml"
 
@@ -11,7 +11,10 @@ include: "order_items.view.lkml"
 # # and define the joins that connect them together.
 #
 
-
+datagroup: datagroupA {
+  max_cache_age: "1 minute"
+  sql_trigger: SELECT 1 ;;
+}
 
 explore: sql_derived_table_test {
   #sql_always_where: {% condition sql_derived_table_test.time_filter %} ${created_time} {% endcondition %} ;;
