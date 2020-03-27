@@ -1,7 +1,8 @@
 view: sql_derived_table_test {
   derived_table: {
+    indexes: ["id"]
     sql:
-                SELECT
+        SELECT
             age
             ,city
             ,country
@@ -14,11 +15,14 @@ view: sql_derived_table_test {
             ,state
             ,zip
           FROM demo_db.{%parameter table_filter%}
---         WHERE
---        {% condition state_filter %} state {% endcondition %}
+        WHERE
+        {% condition state_filter %} state {% endcondition %}
+        --test
       ;;
-   datagroup_trigger: datagroupA
+    datagroup_trigger:datagroupA
   }
+
+
 
   parameter: table_filter {
     type: unquoted
@@ -41,9 +45,9 @@ view: sql_derived_table_test {
   filter: state_filter {
     type: string
   }
-  filter: time_filter {
-    type: date_time
-  }
+#   filter: time_filter {
+#     type: date_time
+#   }
 
 
   dimension_group: date {
@@ -108,25 +112,25 @@ view: sql_derived_table_test {
 
 
 
-  parameter: liquid_date {
-    type: unquoted
-    allowed_value: { label: "EU" value: "Europe" }
-    allowed_value: { label: "USA" value: "America" }
-  }
-
-  dimension: date_formatted {
-    label: "Date_formatted"
-    sql: ${date_date} ;;
-    html:
-    {% if liquid_date._parameter_value  == 'America' %}
-          {{ rendered_value | date: "%B, %d, %Y" }}
-    {% endif %}
-    {% if liquid_date._parameter_value  == 'Europe' %}
-        {{ rendered_value | date:  "%d, %B %Y" }}
-    {% endif %};;
-  }
-
-
+#   parameter: liquid_date {
+#     type: unquoted
+#     allowed_value: { label: "EU" value: "Europe" }
+#     allowed_value: { label: "USA" value: "America" }
+#   }
+#
+#   dimension: date_formatted {
+#     label: "Date_formatted"
+#     sql: ${date_date} ;;
+#     html:
+#     {% if liquid_date._parameter_value  == 'America' %}
+#           {{ rendered_value | date: "%B, %d, %Y" }}
+#     {% endif %}
+#     {% if liquid_date._parameter_value  == 'Europe' %}
+#         {{ rendered_value | date:  "%d, %B %Y" }}
+#     {% endif %};;
+#   }
+#
+#
 
 
 

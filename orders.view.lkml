@@ -1,5 +1,7 @@
 view: orders {
-  sql_table_name: demo_db.orders ;;
+
+
+
 
   dimension: id {
     primary_key: yes
@@ -7,7 +9,15 @@ view: orders {
     sql: ${TABLE}.id ;;
   }
 
-  dimension_group: created {
+
+
+  dimension: created_at_dave {
+    type: date
+    sql: ${TABLE}.created_at ;;
+  }
+
+
+  dimension_group: created_at_dave {
     type: time
     timeframes: [
       raw,
@@ -17,10 +27,21 @@ view: orders {
       month,
       month_name,
       quarter,
+      day_of_week_index,
+      day_of_week,
+      hour_of_day,
+      week_of_year,
       year
     ]
-    sql: ${TABLE}.created_at ;;
+    sql:${TABLE}.created_at;;
   }
+
+
+
+
+
+
+
 
   dimension: status {
     type: string
@@ -35,7 +56,7 @@ view: orders {
 
   measure: count {
     type: count
-    drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
+
   }
 
   measure: random_measure {
@@ -44,4 +65,37 @@ view: orders {
   }
 
 
-}
+
+  filter: status_filter {
+    type: string
+    suggest_dimension: status
+  }
+
+
+  }
+
+#   dimension: status_satisfies_filter {
+#     type: yesno
+#     sql: {% condition status_filter %} ${status} {% endcondition %} ;;
+#   }
+#
+#
+#   measure: count_of_status {
+#     type: count
+#     drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
+#   filters: {
+#     field: status_satisfies_filter
+#     value: "yes"
+#   }
+#   }
+#
+#   measure: %_percent {
+#     type: number
+#     sql: sum(${count_of_status}/${count}) ;;
+#   }
+#
+#
+#
+#
+#
+# }

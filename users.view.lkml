@@ -7,12 +7,84 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: age_2 {
+    type: number
+    sql: ${TABLE}.age ;;
+  }
+
+  measure: L90BD_LOL_CNT {
+    sql: (${TABLE}.age) ;;
+    type: sum
+    drill_fields: [detail*]
+    html:
+    <a href="#drillmenu" target="_self">
+      {% if value > 10000 %}
+        <font color="#42a338 ">{{ rendered_value }}</font>
+      {% elsif value > 5000 %}
+        <font color="#ffb92e ">{{ rendered_value }}</font>
+      {% else %}
+        <font color="#fa4444 ">{{ rendered_value }}</font>
+      {% endif %}
+    </a>;;
+  }
+
+
+
+
+  dimension: min_date_yesno {
+    type: yesno
+    sql: ${state_no_liquid} = "Texas" ;;
+  }
+
+  measure: min_date {
+    type: sum
+    sql: min(${created_date_date}) ;;
+  filters: {
+    field: min_date_yesno
+    value: "Yes"
+  }}
+
+#     measure: days_in_docs_collection {
+#       label: "Business Days in Docs Collection"
+#       type: number
+#       sql: sum(${age});;
+#       filters: {
+#         field: state_no_liquid
+#         value: "Texas"
+#       }
+#     }
+
+    measure: days_in_docs_collection {
+      label: "Business Days in Docs Collection"
+      type: sum
+      sql: ${age};;
+      filters: {
+        field: state_no_liquid
+        value: "Texas"
+      }
+    }
+
+
+
+#   measure: count {
+#     type: count
+#     drill_fields: [age, id]
+#   }
 
   measure: count {
     type: count
-    drill_fields: [age, id]
-  }
+  filters:{
+    field: age
+    value: "NOT 20, NOT 21"
+  }}
 
+    measure: count_2 {
+      type: count}
+
+measure: total_clicks {
+  type: number
+  sql: ${count} ;;
+}
 
 #   measure: total_outstanding_principal_USD {
 #     type: sum_distinct
@@ -55,6 +127,9 @@ view: users {
   }
 
 
+
+
+
 measure: count_all {
   type: count
 }
@@ -70,7 +145,7 @@ measure: count_all {
   dimension: origination_proc_fee {
     type: number
     value_format_name: usd_0
-    sql: ${age};;
+    sql: ${age ghjk};;
   }
 
 
@@ -79,7 +154,7 @@ measure: count_all {
 
   measure: duration_count {
     type: sum
-    sql: case when ${age} <= '{% parameter duration %}'
+    sql: case when ${age felix} <= '{% parameter duration %}'
       THEN 1
       ELSE null
       END ;;
@@ -107,10 +182,6 @@ measure: count_all {
 
 
   ######################  ######################  ######################  ######################  ######################  ######################  ######################  ######################
-  dimension: state_no_liquid{
-    type: string
-    sql: ${TABLE}.state ;;
-  }
 
 
   parameter: liquid_filter_test {
@@ -523,13 +594,13 @@ measure: new_age {
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
-    html:
-    {% if value == 'm' %}
-    <h1 style="color: blue; background-color: black; font-size:100px; text-align:center">{{ value }}</h1>
-    {% elsif value == 'f' %}
-    <h1 style="color: pink; background-color: black; font-size:100px; text-align:center">{{ value }}</h1>
-    {% endif %}
-    ;;
+#     html:
+#     {% if value == 'm' %}
+#     <h1 style="color: blue; background-color: black; font-size:100px; text-align:center">{{ value }}</h1>
+#     {% elsif value == 'f' %}
+#     <h1 style="color: pink; background-color: black; font-size:100px; text-align:center">{{ value }}</h1>
+#     {% endif %}
+#     ;;
   }
 
 
@@ -591,21 +662,12 @@ measure: new_age {
   }
 
 
-measure: L90BD_LOL_CNT {
-sql: (${TABLE}.age) ;;
-type: sum
-drill_fields: [detail*]
-    html:
-    <a href="#drillmenu" target="_self">
-      {% if value > 10000 %}
-        <font color="#42a338 ">{{ rendered_value }}</font>
-      {% elsif value > 5000 %}
-        <font color="#ffb92e ">{{ rendered_value }}</font>
-      {% else %}
-        <font color="#fa4444 ">{{ rendered_value }}</font>
-      {% endif %}
-    </a>;;
-}
+
+
+
+
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
@@ -732,16 +794,17 @@ drill_fields: [detail*]
 
 
   measure: age_1 {
+    type: string
     sql: ${TABLE}.age ;;
-    html:
-    {% if value <= 50 %}
-      <p style="color: black; background-color: lightblue; font-size:100%; text-align:center">{{ rendered_value }}</p>
-    {% elsif value > 50 %}
-      <p style="color: black; background-color: lightgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
-    {% else %}
-      <p style="color: black; background-color: orange; font-size:100%; text-align:center">{{ rendered_value }}</p>
-    {% endif %}
-;;
+#     html:
+#     {% if value <= 50 %}
+#       <p style="color: black; background-color: lightblue; font-size:100%; text-align:center">{{ rendered_value }}</p>
+#     {% elsif value > 50 %}
+#       <p style="color: black; background-color: lightgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
+#     {% else %}
+#       <p style="color: black; background-color: orange; font-size:100%; text-align:center">{{ rendered_value }}</p>
+#     {% endif %}
+# ;;
   }
 
 dimension: state_html {
@@ -757,6 +820,54 @@ measure: test_html {
 {% else %} <p style="color: green;">{{ rendered_value }}</p>
 {% endif %};;}
 
+
+#     measure: age_q {
+#       type: number
+#       sql: 50 ;;
+#     }
+#
+    measure: age_sum {
+      type: sum
+      sql: ${TABLE}.age ;;
+    }
+
+    measure: age_q {
+      type: number
+      sql: '50' ;;
+    }
+
+measure: age_test_1 {
+  sql: ${age} ;;
+    html: {% if value < users.age_q._value %}
+   <p style="color: green;">{{ value }}</p>
+    {% else %}
+    <p style="color: red;">{{ value }}</p>
+    {% endif %}
+    ;;
+}
+
+    dimension: age {
+      type: number
+      sql: ${TABLE}.age ;;
+      link: {
+        label: "{{ age }} Analytics Dashboard"
+        url: "https://dcltraining.dev.looker.com/dashboards/24"
+      }
+    }
+
+    measure: test_sale_price {
+      type: number
+      sql: 1 ;;
+      html: {{ age_q._value + age_sum._value }};;
+    }
+
+    measure: count_html {
+      label: "Count Of Payments"
+      html: <a href="#drillmenu" target="_self" ><font color = "blue"</font>{{ rendered_value }}</a> ;;
+      type: count
+      value_format: "#,##0"
+      drill_fields:[]
+    }
 
 
   dimension: Criteria{
@@ -1083,14 +1194,84 @@ measure: test_html {
     }}
 
 
-  dimension: age {
-    type: number
-    sql: ${TABLE}.age ;;
+
+
+    dimension: age_tier {
+      type: tier
+      sql: ${TABLE}.age ;;
+      style: integer
+      tiers: [0,20,30,40,50,60,70,80,90,100]
+      }
+
+measure: link_test_html {
+  type: number
+  sql: ${id} ;;
   link: {
-    label: "{{ age }} Analytics Dashboard"
-    url: "https://dcltraining.dev.looker.com/dashboards/24"
-  }
-
-
+    label: "Dynamic Link"
+    url: "{% if users.age._value < 50 %}https://www.google.com{% elsif users.age._value >50 %}www.yourold.com{% else %}www.amazone.co.uk{% endif %}"
   }
 }
+
+    measure: mes_5 {
+    type: number
+    sql:  0.9999912345;;
+    }
+
+    measure: mes_6 {
+      type: number
+      sql:  0.99999912345;;
+    }
+
+
+    measure: mes_test1 {
+      type: number
+      sql:  ${mes_5}::numeric(19,5);;
+      value_format_name: percent_0
+    }
+
+    measure: mes_test2 {
+      type: number
+      sql:  ${mes_5}::numeric(19,6);;
+      value_format_name: percent_0
+    }
+
+   dimension: dimension_state_null{
+    type: string
+      sql: case when ${state} ;;
+    }
+
+
+
+
+    dimension: state_no_liquid{
+      type: string
+      sql: ${TABLE}.state ;;
+    }
+
+
+
+    dimension: state_test{
+      type: string
+      sql: case when ${state_no_liquid} like '%new%' then NULL else ${state_no_liquid} end  ;;
+    }
+
+
+dimension: test_yes_no{
+  type: yesno
+  sql:  ${state_no_liquid} = 'New York' ;;
+}
+
+measure: yesno_test {
+  type: sum
+  sql: ${age} ;;
+    filters: {
+      field: users.state_test
+      value: "No, NULL"
+    }
+
+
+
+  }
+
+
+    }
