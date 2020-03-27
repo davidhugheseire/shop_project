@@ -1,4 +1,4 @@
-view: sql_derived_table_test {
+view: PDT_sql_derived_table {
   derived_table: {
     indexes: ["id"]
     sql:
@@ -14,40 +14,11 @@ view: sql_derived_table_test {
             ,last_name
             ,state
             ,zip
-          FROM demo_db.{%parameter table_filter%}
-        WHERE
-        {% condition state_filter %} state {% endcondition %}
-        --test
+          FROM demo_db.users
       ;;
     datagroup_trigger:datagroupA
   }
 
-
-
-  parameter: table_filter {
-    type: unquoted
-    allowed_value: { value: "users" }
-  }
-
-  filter: date_filter {
-    type: date
-  }
-
-#   filter: table_filter {
-#     type: string
-#   }
-
-#   parameter: table_filter {
-#     type: unquoted
-#     allowed_value: { value: "users" }
-#   }
-
-  filter: state_filter {
-    type: string
-  }
-#   filter: time_filter {
-#     type: date_time
-#   }
 
 
   dimension_group: date {
@@ -106,9 +77,68 @@ view: sql_derived_table_test {
     type: string
     sql: ${TABLE}.zip ;;
   }
-    measure: count {
-     type: count
+  measure: count {
+    type: count
   }
+
+  }
+
+
+
+
+
+
+
+
+
+#   view: sql_derived_table_test {
+#     derived_table: {
+#       indexes: ["id"]
+#       sql:
+#         SELECT
+#             age
+#             ,city
+#             ,country
+#             ,DATE(created_at) as "date"
+#             ,email
+#             ,first_name
+#             ,gender
+#             ,id
+#             ,last_name
+#             ,state
+#             ,zip
+#           FROM demo_db.{%parameter table_filter%}
+#         WHERE
+#         {% condition state_filter %} state {% endcondition %}
+#       ;;
+#     }
+
+
+
+#   parameter: table_filter {
+#     type: unquoted
+#     allowed_value: { value: "users" }
+#   }
+#
+#   filter: date_filter {
+#     type: date
+#   }
+
+#   filter: table_filter {
+#     type: string
+#   }
+
+#   parameter: table_filter {
+#     type: unquoted
+#     allowed_value: { value: "users" }
+#   }
+#
+#   filter: state_filter {
+#     type: string
+#   }
+#   filter: time_filter {
+#     type: date_time
+#   }
 
 
 
@@ -335,9 +365,3 @@ view: sql_derived_table_test {
 #
 #
 #     }
-
-
-
-
-
-}

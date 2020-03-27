@@ -16,7 +16,7 @@ datagroup: datagroupA {
   sql_trigger: SELECT NOW() ;;
 }
 
-explore: sql_derived_table_test {
+explore: PDT_sql_derived_table {
   #sql_always_where: {% condition sql_derived_table_test.time_filter %} ${created_time} {% endcondition %} ;;
 
   }
